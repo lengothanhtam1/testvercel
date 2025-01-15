@@ -1,11 +1,7 @@
-const express = require('express');
+// api/chatgpt.js
 const axios = require('axios');
 
-const app = express();
-const PORT = 3000;
-
-// Route để xử lý request tới ChatGPT
-app.get('/chatgpt', async (req, res) => {
+module.exports = async (req, res) => {
     try {
         // Cookie của bạn
         const cookies = `__cf_bm=...; __Secure-next-auth.session-token=...`;
@@ -19,13 +15,8 @@ app.get('/chatgpt', async (req, res) => {
         });
 
         // Gửi phản hồi từ ChatGPT về client
-        res.send(response.data);
+        res.status(200).send(response.data);
     } catch (error) {
         res.status(500).send('Có lỗi xảy ra: ' + error.message);
     }
-});
-
-// Bắt đầu server
-app.listen(PORT, () => {
-    console.log(`Server đang chạy tại http://localhost:${PORT}`);
-});
+};
